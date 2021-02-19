@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Facer : Kinematic
+{
+    Face myRotateType;
+    Arrive myMoveType;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        myRotateType = new Face();
+        myRotateType.character = this;
+        myRotateType.target = myTarget;
+
+        myMoveType = new Arrive();
+        myMoveType.character = this;
+        myMoveType.target = myTarget;
+    }
+
+    // Update is called once per frame
+    protected override void Update()
+    {
+        steeringUpdate = new SteeringOutput();
+        steeringUpdate.linear = myMoveType.getSteering().linear;
+        steeringUpdate.angular = myRotateType.getSteering().angular;
+        base.Update();
+    }
+}
